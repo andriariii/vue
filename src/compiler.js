@@ -10,7 +10,6 @@ var Emitter     = require('./emitter'),
     
     // cache methods
     slice       = Array.prototype.slice,
-    log         = utils.log,
     makeHash    = utils.hash,
     extend      = utils.extend,
     def         = utils.defProtected,
@@ -46,7 +45,7 @@ function Compiler (vm, options) {
 
     // initialize element
     var el = compiler.setupElement(options)
-    log('\nnew VM instance:', el.tagName, '\n')
+    utils.log('\nnew VM instance:', el.tagName, '\n')
 
     // set compiler properties
     compiler.vm  = vm
@@ -503,7 +502,7 @@ CompilerProto.bindDirective = function (directive) {
  */
 CompilerProto.createBinding = function (key, isExp, isFn) {
 
-    log('  created binding: ' + key)
+    utils.log('  created binding: ' + key)
 
     var compiler = this,
         bindings = compiler.bindings,

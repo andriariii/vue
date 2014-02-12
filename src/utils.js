@@ -174,28 +174,6 @@ var utils = module.exports = {
     },
 
     /**
-     *  log for debugging
-     */
-    log: function () {
-        if (config.debug && console) {
-            console.log(join.call(arguments, ' '))
-        }
-    },
-    
-    /**
-     *  warnings, traces by default
-     *  can be suppressed by `silent` option.
-     */
-    warn: function() {
-        if (!config.silent && console) {
-            console.warn(join.call(arguments, ' '))
-            if (config.debug) {
-                console.trace()
-            }
-        }
-    },
-
-    /**
      *  used to defer batch updates
      */
     nextTick: function (cb) {
@@ -233,3 +211,32 @@ var utils = module.exports = {
         }
     }
 }
+
+/**
+ *  Attach debug loggers
+ *  This function will be dropped during minification
+ */
+function enableDebug () {
+    /**
+     *  log for debugging
+     */
+    utils.log = function () {
+        if (config.debug && console) {
+            console.log(join.call(arguments, ' '))
+        }
+    }
+    /**
+     *  warnings, traces by default
+     *  can be suppressed by `silent` option.
+     */
+    utils.warn = function() {
+        if (!config.silent && console) {
+            console.warn(join.call(arguments, ' '))
+            if (config.debug) {
+                console.trace()
+            }
+        }
+    }
+}
+
+enableDebug()
